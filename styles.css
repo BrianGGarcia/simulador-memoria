@@ -1,0 +1,482 @@
+/* ==============================
+   Estilos generales
+   ============================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "IBM Plex Sans", Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #1f2937;
+}
+
+section {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+section h2 {
+    margin-top: 0;
+}
+
+/* ==============================
+   Encabezado
+   ============================== */
+header {
+    background-color: #1d4ed8;
+    color: white;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* ==============================
+   Layout principal
+   ============================== */
+main {
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto 1fr;
+
+    grid-template-areas:
+        "controles resumen"
+        "controles contenido";
+
+    gap: 16px;
+    align-items: stretch;
+}
+
+#contenido-principal {
+    grid-area: contenido;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    align-items: stretch;
+}
+
+/* ==============================
+   Panel de controles
+   ============================== */
+#controles {
+    grid-area: controles;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    height: 100%;
+}
+
+#controles div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#controles label {
+    font-weight: bold;
+}
+
+#controles input,
+#controles select,
+#controles button {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+#controles input:focus,
+#controles select:focus {
+    outline: 2px solid #2563eb;
+    border-color: #2563eb;
+}
+
+#controles button {
+    cursor: pointer;
+    background-color: #e5e7eb;
+}
+
+/* Botón principal para cargar procesos */
+#controles #btn-cargar {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+}
+
+#controles #btn-cargar:hover {
+    background-color: #1d4ed8;
+}
+
+#btn-liberar:hover,
+#btn-compactar:hover,
+#btn-reiniciar:hover,
+#btn-generar-pid:hover {
+    background-color: #d1d5db;
+}
+
+/* Estado visual de controles deshabilitados */
+#controles button:disabled,
+#controles input:disabled,
+#controles select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Campos numéricos con unidad KB integrada */
+#controles .campo-con-unidad {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+}
+
+#controles .campo-con-unidad input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    border-radius: 6px 0 0 6px;
+}
+
+.campo-con-unidad span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    padding: 0 12px;
+
+    border: 1px solid #cbd5e1;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+
+    background-color: #f1f5f9;
+    font-size: 14px;
+}
+
+/* ==============================
+   Resumen del sistema
+   ============================== */
+#resumen {
+    grid-area: resumen;
+}
+
+#resumen-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.tarjeta-resumen {
+    min-height: 90px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: #f8fafc;
+    border: 1px solid #dbe3ed;
+    border-radius: 8px;
+}
+
+.tarjeta-resumen h3 {
+    margin: 0 0 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.tarjeta-resumen p {
+    margin: 0;
+
+    font-size: 24px;
+    font-weight: 600;
+    color: #1d4ed8;
+    text-align: center;
+}
+
+/* ==============================
+   Mapa de memoria
+   ============================== */
+#mapa-memoria {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor de la representación gráfica de la memoria */
+#memoria-visual {
+    width: 94%;
+    margin: 0 auto;
+
+    flex: 1;
+    min-height: 360px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+    overflow: hidden;
+
+    background-color: #f8fafc;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+#memoria-visual p {
+    margin: 12px 8px 0;
+
+    color: #64748b;
+    text-align: center;
+}
+
+/* Los bloques mantienen una altura proporcional
+   al tamaño de cada partición en memoria. */
+.bloque-memoria {
+    min-height: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-bottom: 1px solid #94a3b8;
+
+    font-weight: bold;
+    text-align: center;
+}
+
+.bloque-memoria:last-child {
+    border-bottom: none;
+}
+
+.bloque-memoria.libre {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.bloque-memoria.ocupada {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+/* Reduce el texto en particiones pequeñas
+   sin modificar su tamaño proporcional. */
+.bloque-memoria.bloque-pequeno {
+    font-size: 12px;
+    line-height: 1;
+}
+
+.aviso-mapa {
+    margin: 10px auto 0;
+    width: 94%;
+
+    font-size: 12px;
+    color: #64748b;
+    text-align: center;
+}
+
+/* ==============================
+   Tabla de particiones
+   ============================== */
+#tabla-particiones table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tabla-particiones th,
+#tabla-particiones td {
+    padding: 12px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    text-align: center;
+}
+
+#tabla-particiones th {
+    background-color: #eff6ff;
+    color: #1e3a8a;
+}
+
+#tabla-particiones tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Etiquetas visuales para el estado de cada partición */
+.estado-particion {
+    display: inline-block;
+
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.estado-libre {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.estado-ocupada {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+/* ==============================
+   Diseño responsive
+   ============================== */
+/* Tablets y pantallas medianas */
+@media (max-width: 1000px) {
+    main {
+        grid-template-columns: 1fr;
+
+        grid-template-areas:
+            "controles"
+            "resumen"
+            "contenido";
+    }
+
+    #contenido-principal {
+        grid-template-columns: 1fr;
+    }
+
+    #resumen-tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+    header {
+        padding: 16px;
+    }
+
+    header h1 {
+        font-size: 24px;
+        text-align: left;
+    }
+
+    main {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    section {
+        padding: 12px;
+    }
+
+    #controles {
+        gap: 12px;
+    }
+
+    #controles input,
+    #controles select,
+    #controles button {
+        font-size: 16px;
+    }
+
+
+    /* Resumen */
+    #resumen-tarjetas {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .tarjeta-resumen {
+        padding: 12px;
+    }
+
+    .tarjeta-resumen p {
+        font-size: 20px;
+    }
+
+    /* Mapa y tabla */
+    #contenido-principal {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    #memoria-visual {
+        min-height: 420px;
+    }
+
+    /* En celulares, cada fila de la tabla
+       se presenta como una tarjeta vertical. */
+    #tabla-particiones table,
+    #tabla-particiones tbody,
+    #tabla-particiones tr,
+    #tabla-particiones td {
+        display: block;
+        width: 100%;
+    }
+
+    #tabla-particiones thead {
+        display: none;
+    }
+
+    #tabla-particiones tbody tr {
+        margin-bottom: 12px;
+
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+
+        overflow: hidden;
+    }
+
+    #tabla-particiones td {
+        padding: 10px 12px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        border-bottom: 1px solid #e5e7eb;
+
+        text-align: right;
+    }
+
+    #tabla-particiones td:last-child {
+        border-bottom: none;
+    }
+
+    #tabla-particiones td::before {
+        font-weight: bold;
+        color: #1e3a8a;
+    }
+
+    #tabla-particiones td:nth-child(1)::before {
+        content: "Inicio (KB)";
+    }
+
+    #tabla-particiones td:nth-child(2)::before {
+        content: "Fin (KB)";
+    }
+
+    #tabla-particiones td:nth-child(3)::before {
+        content: "Tamaño (KB)";
+    }
+
+    #tabla-particiones td:nth-child(4)::before {
+        content: "Estado";
+    }
+
+    #tabla-particiones td:nth-child(5)::before {
+        content: "PID";
+    }
+}

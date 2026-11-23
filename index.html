@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simulador de Gestión de Memoria</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Encabezado principal -->
+    <header>
+        <h1>💾 Simulador de Gestión de Memoria</h1>
+    </header>
+
+    <main>
+
+        <!-- Panel de controles del simulador -->
+        <section id="controles">
+            <h2>Controles</h2>
+
+            <div>
+                <label for="memoria-total">Capacidad total de memoria</label>
+
+                <div class="campo-con-unidad">
+                    <input type="number" id="memoria-total" min="1" placeholder="Ej: 1000">
+                    <span>KB</span>
+                </div>
+            </div>
+
+            <button type="button" id="btn-inicializar">
+                Inicializar memoria
+            </button>
+
+            <div>
+                <label for="pid">PID</label>
+                <input type="number" id="pid" min="1" placeholder="Ej: 1001">
+
+                <button type="button" id="btn-generar-pid">
+                    Generar PID
+                </button>
+            </div>
+
+            <div>
+                <label for="tamano-proceso">Tamaño del proceso</label>
+
+                <div class="campo-con-unidad">
+                    <input type="number" id="tamano-proceso" min="1" placeholder="Ej: 200">
+                    <span>KB</span>
+                </div>
+            </div>
+
+            <div>
+                <label for="algoritmo">Algoritmo de asignación</label>
+
+                <select id="algoritmo">
+                    <option value="first-fit">First Fit</option>
+                    <option value="best-fit">Best Fit</option>
+                    <option value="worst-fit">Worst Fit</option>
+                </select>
+            </div>
+
+            <button type="button" id="btn-cargar">
+                Cargar proceso
+            </button>
+
+            <button type="button" id="btn-liberar">
+                Liberar proceso
+            </button>
+
+            <button type="button" id="btn-compactar">
+                Compactar memoria
+            </button>
+
+            <button type="button" id="btn-reiniciar">
+                Reiniciar simulación
+            </button>
+        </section>
+
+        <!-- Indicadores generales del estado de la memoria -->
+        <section id="resumen">
+            <h2>Resumen del sistema</h2>
+
+            <div id="resumen-tarjetas">
+
+                <div class="tarjeta-resumen">
+                    <h3>Memoria total</h3>
+                    <p id="resumen-total">0 KB</p>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <h3>Memoria ocupada</h3>
+                    <p id="resumen-ocupada">0 KB</p>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <h3>Memoria libre</h3>
+                    <p id="resumen-libre">0 KB</p>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <h3>Procesos cargados</h3>
+                    <p id="resumen-procesos">0</p>
+                </div>
+
+                <div class="tarjeta-resumen">
+                    <h3>Huecos libres</h3>
+                    <p id="resumen-huecos">0</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Representación gráfica y tabla de particiones -->
+        <div id="contenido-principal">
+
+            <!-- Representación proporcional de la memoria -->
+            <section id="mapa-memoria">
+                <h2>Mapa de memoria</h2>
+
+                <div id="memoria-visual">
+                    <p>La memoria todavía no fue inicializada.</p>
+                </div>
+                <p class="aviso-mapa">
+                    Particiones muy pequeñas pueden no ser visibles proporcionalmente en el mapa.<br>
+                    Consultá la tabla para ver sus valores exactos.
+                </p>
+            </section>
+
+            <!-- Información de gestión de las particiones -->
+            <section id="tabla-particiones">
+                <h2>Tabla de particiones</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Inicio (KB)</th>
+                            <th>Fin (KB)</th>
+                            <th>Tamaño (KB)</th>
+                            <th>Estado</th>
+                            <th>PID</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="cuerpo-tabla">
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Lógica del simulador -->
+    <script src="script.js"></script>
+</body>
+
+</html>
